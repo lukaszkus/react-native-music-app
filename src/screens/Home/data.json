@@ -1,0 +1,215 @@
+{
+  "feed": {
+    "author": {
+      "name": { "label": "iTunes Store" },
+      "uri": { "label": "http://www.apple.com/itunes/" }
+    },
+    "entry": [
+      {
+        "im:name": { "label": "Dance Fever" },
+        "im:image": [
+          {
+            "label": "https://is4-ssl.mzstatic.com/image/thumb/Music116/v4/93/ce/c5/93cec50d-bb01-3a42-364a-54af31cd73c7/22UMGIM23127.rgb.jpg/55x55bb.png",
+            "attributes": { "height": "55" }
+          },
+          {
+            "label": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/93/ce/c5/93cec50d-bb01-3a42-364a-54af31cd73c7/22UMGIM23127.rgb.jpg/60x60bb.png",
+            "attributes": { "height": "60" }
+          },
+          {
+            "label": "https://is3-ssl.mzstatic.com/image/thumb/Music116/v4/93/ce/c5/93cec50d-bb01-3a42-364a-54af31cd73c7/22UMGIM23127.rgb.jpg/170x170bb.png",
+            "attributes": { "height": "170" }
+          }
+        ],
+        "im:itemCount": { "label": "14" },
+        "im:price": {
+          "label": "$9.99",
+          "attributes": { "amount": "9.99", "currency": "USD" }
+        },
+        "im:contentType": {
+          "im:contentType": {
+            "attributes": { "term": "Album", "label": "Album" }
+          },
+          "attributes": { "term": "Music", "label": "Music" }
+        },
+        "rights": {
+          "label": "A Polydor Records Release; ℗ 2022 Universal Music Operations Limited"
+        },
+        "title": { "label": "Dance Fever - Florence + the Machine" },
+        "link": {
+          "attributes": {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://music.apple.com/us/album/dance-fever/1613321261?uo=2"
+          }
+        },
+        "id": {
+          "label": "https://music.apple.com/us/album/dance-fever/1613321261?uo=2",
+          "attributes": { "im:id": "1613321261" }
+        },
+        "im:artist": {
+          "label": "Florence + the Machine",
+          "attributes": {
+            "href": "https://music.apple.com/us/artist/florence-the-machine/281070699?uo=2"
+          }
+        },
+        "category": {
+          "attributes": {
+            "im:id": "20",
+            "term": "Alternative",
+            "scheme": "https://music.apple.com/us/genre/music-alternative/id20?uo=2",
+            "label": "Alternative"
+          }
+        },
+        "im:releaseDate": {
+          "label": "2022-05-13T00:00:00-07:00",
+          "attributes": { "label": "May 13, 2022" }
+        }
+      },
+      {
+        "im:name": { "label": "Dropout Boogie" },
+        "im:image": [
+          {
+            "label": "https://is4-ssl.mzstatic.com/image/thumb/Music116/v4/f6/df/07/f6df0701-5d1e-8bca-a43a-e8ec87083ae2/075597913408.jpg/55x55bb.png",
+            "attributes": { "height": "55" }
+          },
+          {
+            "label": "https://is3-ssl.mzstatic.com/image/thumb/Music116/v4/f6/df/07/f6df0701-5d1e-8bca-a43a-e8ec87083ae2/075597913408.jpg/60x60bb.png",
+            "attributes": { "height": "60" }
+          },
+          {
+            "label": "https://is3-ssl.mzstatic.com/image/thumb/Music116/v4/f6/df/07/f6df0701-5d1e-8bca-a43a-e8ec87083ae2/075597913408.jpg/170x170bb.png",
+            "attributes": { "height": "170" }
+          }
+        ],
+        "im:itemCount": { "label": "10" },
+        "im:price": {
+          "label": "$9.99",
+          "attributes": { "amount": "9.99", "currency": "USD" }
+        },
+        "im:contentType": {
+          "im:contentType": {
+            "attributes": { "term": "Album", "label": "Album" }
+          },
+          "attributes": { "term": "Music", "label": "Music" }
+        },
+        "rights": {
+          "label": "℗ 2022 The Black Keys, under exclusive license to Nonesuch Records Inc."
+        },
+        "title": { "label": "Dropout Boogie - The Black Keys" },
+        "link": {
+          "attributes": {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://music.apple.com/us/album/dropout-boogie/1611850611?uo=2"
+          }
+        },
+        "id": {
+          "label": "https://music.apple.com/us/album/dropout-boogie/1611850611?uo=2",
+          "attributes": { "im:id": "1611850611" }
+        },
+        "im:artist": {
+          "label": "The Black Keys",
+          "attributes": {
+            "href": "https://music.apple.com/us/artist/the-black-keys/5893059?uo=2"
+          }
+        },
+        "category": {
+          "attributes": {
+            "im:id": "20",
+            "term": "Alternative",
+            "scheme": "https://music.apple.com/us/genre/music-alternative/id20?uo=2",
+            "label": "Alternative"
+          }
+        },
+        "im:releaseDate": {
+          "label": "2022-05-13T00:00:00-07:00",
+          "attributes": { "label": "May 13, 2022" }
+        }
+      },
+      {
+        "im:name": { "label": "Encanto (Original Motion Picture Soundtrack)" },
+        "im:image": [
+          {
+            "label": "https://is3-ssl.mzstatic.com/image/thumb/Music126/v4/94/4d/9a/944d9a8d-0549-f537-5706-5b083bd84a7d/21UM1IM38949.rgb.jpg/55x55bb.png",
+            "attributes": { "height": "55" }
+          },
+          {
+            "label": "https://is5-ssl.mzstatic.com/image/thumb/Music126/v4/94/4d/9a/944d9a8d-0549-f537-5706-5b083bd84a7d/21UM1IM38949.rgb.jpg/60x60bb.png",
+            "attributes": { "height": "60" }
+          },
+          {
+            "label": "https://is4-ssl.mzstatic.com/image/thumb/Music126/v4/94/4d/9a/944d9a8d-0549-f537-5706-5b083bd84a7d/21UM1IM38949.rgb.jpg/170x170bb.png",
+            "attributes": { "height": "170" }
+          }
+        ],
+        "im:itemCount": { "label": "44" },
+        "im:price": {
+          "label": "$9.99",
+          "attributes": { "amount": "9.99", "currency": "USD" }
+        },
+        "im:contentType": {
+          "im:contentType": {
+            "attributes": { "term": "Album", "label": "Album" }
+          },
+          "attributes": { "term": "Music", "label": "Music" }
+        },
+        "rights": { "label": "℗ 2021 Walt Disney Records" },
+        "title": {
+          "label": "Encanto (Original Motion Picture Soundtrack) - Lin-Manuel Miranda, Germaine Franco, Stephanie Beatriz, Olga Merediz & Jessica Darrow"
+        },
+        "link": {
+          "attributes": {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://music.apple.com/us/album/encanto-original-motion-picture-soundtrack/1594677532?uo=2"
+          }
+        },
+        "id": {
+          "label": "https://music.apple.com/us/album/encanto-original-motion-picture-soundtrack/1594677532?uo=2",
+          "attributes": { "im:id": "1594677532" }
+        },
+        "im:artist": {
+          "label": "Lin-Manuel Miranda, Germaine Franco, Stephanie Beatriz, Olga Merediz & Jessica Darrow",
+          "attributes": {
+            "href": "https://music.apple.com/us/artist/lin-manuel-miranda/329027198?uo=2"
+          }
+        },
+        "category": {
+          "attributes": {
+            "im:id": "1166",
+            "term": "Musicals",
+            "scheme": "https://music.apple.com/us/genre/music-soundtrack-musicals/id1166?uo=2",
+            "label": "Musicals"
+          }
+        },
+        "im:releaseDate": {
+          "label": "2021-11-19T00:00:00-07:00",
+          "attributes": { "label": "November 19, 2021" }
+        }
+      }
+    ],
+    "updated": { "label": "2022-05-17T14:22:41-07:00" },
+    "rights": { "label": "Copyright 2008 Apple Inc." },
+    "title": { "label": "iTunes Store: Top Albums" },
+    "icon": { "label": "http://itunes.apple.com/favicon.ico" },
+    "link": [
+      {
+        "attributes": {
+          "rel": "alternate",
+          "type": "text/html",
+          "href": "https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewTop?cc=us&id=1&popId=11"
+        }
+      },
+      {
+        "attributes": {
+          "rel": "self",
+          "href": "https://mzstoreservices-int-st.itunes.apple.com/us/rss/topalbums/limit=3/json"
+        }
+      }
+    ],
+    "id": {
+      "label": "https://mzstoreservices-int-st.itunes.apple.com/us/rss/topalbums/limit=3/json"
+    }
+  }
+}
