@@ -9,13 +9,15 @@ import {
 } from "react-native";
 import axios from "axios";
 
+const endpointURL = "https://itunes.apple.com/us/rss/topalbums/limit=100/json";
+
 const Home = () => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
   useEffect(() => {
     axios
-      .get("https://itunes.apple.com/us/rss/topalbums/limit=100/json")
+      .get(endpointURL)
       .then((res) => {
         let data = res.data.feed.entry;
         // console.log(data);
@@ -28,7 +30,7 @@ const Home = () => {
   }, []);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, marginTop: 28 }}>
       {isLoading ? (
         <ActivityIndicator />
       ) : (
