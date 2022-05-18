@@ -2,35 +2,33 @@ import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
-  Text,
+  Image,
   SafeAreaView,
+  Text,
   View,
 } from "react-native";
+import axios from "axios";
 
 const Home = () => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
-  const getAlbums = async () => {
-    try {
-      const response = await fetch(
-        "https://itunes.apple.com/us/rss/topalbums/limit=3/json"
-      );
-      const json = await response.json();
-      setData(json.feed["entry"]);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    getAlbums();
+    axios
+      .get("https://itunes.apple.com/us/rss/topalbums/limit=100/json")
+      .then((res) => {
+        let data = res.data.feed.entry;
+        // console.log(data);
+        setData(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (
-    <SafeAreaView style={{ flex: 1, padding: 24 }}>
+    <SafeAreaView style={{ flex: 1 }}>
       {isLoading ? (
         <ActivityIndicator />
       ) : (
@@ -38,7 +36,13 @@ const Home = () => {
           data={data}
           keyExtractor={(item) => item.id.attributes["im:id"]}
           renderItem={({ item }) => (
-            <View>
+            <View style={{ marginHorizontal: 20 }}>
+              <Image
+                source={{
+                  uri: `${item["im:image"][1]["label"]}`,
+                }}
+                style={{ width: 60, height: 60 }}
+              />
               <Text>{item.title["label"]}</Text>
             </View>
           )}
