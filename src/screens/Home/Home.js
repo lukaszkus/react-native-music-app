@@ -13,9 +13,11 @@ const Home = () => {
 
   const getAlbums = async () => {
     try {
-      const response = await fetch("https://reactnative.dev/movies.json");
+      const response = await fetch(
+        "https://itunes.apple.com/us/rss/topalbums/limit=3/json"
+      );
       const json = await response.json();
-      setData(json.movies);
+      setData(json.feed["entry"]);
     } catch (error) {
       console.error(error);
     } finally {
@@ -28,17 +30,21 @@ const Home = () => {
   }, []);
 
   return (
-    <View style={{ flex: 1, padding: 24 }}>
+    <SafeAreaView style={{ flex: 1, padding: 24 }}>
       {isLoading ? (
         <ActivityIndicator />
       ) : (
         <FlatList
           data={data}
-          keyExtractor={({ id }, index) => id}
-          renderItem={({ item }) => <Text>{item.title}</Text>}
+          keyExtractor={(item) => item.id.attributes["im:id"]}
+          renderItem={({ item }) => (
+            <View>
+              <Text>{item.title["label"]}</Text>
+            </View>
+          )}
         />
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 
