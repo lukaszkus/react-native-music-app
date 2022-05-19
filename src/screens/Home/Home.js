@@ -30,7 +30,7 @@ const Home = () => {
   }, []);
 
   return (
-    <SafeAreaView style={{ flex: 1, marginTop: 28 }}>
+    <SafeAreaView style={{ flex: 1, marginTop: 28, width: "100%" }}>
       {isLoading ? (
         <ActivityIndicator />
       ) : (
@@ -38,14 +38,28 @@ const Home = () => {
           data={data}
           keyExtractor={(item) => item.id.attributes["im:id"]}
           renderItem={({ item }) => (
-            <View style={{ marginHorizontal: 20 }}>
+            <View
+              style={{
+                marginHorizontal: 20,
+                flexDirection: "row",
+                borderRadius: 5,
+                marginBottom: 24,
+                backgroundColor: "white",
+              }}>
               <Image
                 source={{
-                  uri: `${item["im:image"][1]["label"]}`,
+                  uri: `${item["im:image"][2]["label"]}`,
                 }}
-                style={{ width: 60, height: 60 }}
+                style={{ width: 100, height: 100, borderRadius: 5 }}
               />
-              <Text>{item.title["label"]}</Text>
+              <View style={{ flex: 3 }}>
+                <Text style={{ fontSize: 16 }} numberOfLines={1}>
+                  {item["im:name"]["label"]}
+                </Text>
+                <Text numberOfLines={1} style={{ fontSize: 12 }}>
+                  {item["im:artist"]["label"]}
+                </Text>
+              </View>
             </View>
           )}
         />
