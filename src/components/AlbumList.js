@@ -1,4 +1,4 @@
-import { FlatList } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 
 import AlbumItem from "./AlbumItem";
 import Header from "./Header";
@@ -11,8 +11,13 @@ const AlbumList = ({ data, filter, setFilter }) => {
       renderItem={({ item }) => <AlbumItem item={item} />}
       showsVerticalScrollIndicator={false}
       ListHeaderComponent={<Header filter={filter} setFilter={setFilter} />}
+      // style={styles.listContainer}
     />
   );
 };
 
 export default AlbumList;
+
+// const styles = StyleSheet.create({
+//   listContainer: { flex: 1 },
+// });

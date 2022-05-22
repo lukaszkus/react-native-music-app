@@ -4,7 +4,6 @@ import { Image, StyleSheet, Text, View } from "react-native";
 
 import { assets, COLORS } from "../constants";
 
-import Icon from "./Icon";
 import Button from "./Button";
 
 const AlbumItem = ({ item }) => {
@@ -36,7 +35,6 @@ const AlbumItem = ({ item }) => {
 
 const styles = StyleSheet.create({
   albumContainer: {
-    flex: 1,
     marginHorizontal: 20,
     flexDirection: "row",
     alignItems: "center",

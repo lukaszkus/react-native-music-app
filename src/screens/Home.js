@@ -97,7 +97,12 @@ const Home = () => {
               justifyContent: "space-evenly",
             }}
           >
-            <Icon iconUrl={assets.home} iconWidth={30} iconHeight={30} />
+            <Icon
+              iconUrl={assets.home}
+              iconWidth={30}
+              iconHeight={30}
+              handlePress={() => setFilter("")}
+            />
             <Icon
               iconUrl={assets.heart}
               iconWidth={30}
