@@ -1,7 +1,13 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
+import {
+  useFonts,
+  Poppins_300Light,
+  Poppins_400Regular,
+  Poppins_700Bold,
+} from "@expo-google-fonts/poppins";
 
-import { Details, Home } from "./src/screens";
+import { Details, Favourites, Home } from "./src/screens";
 
 const Stack = createNativeStackNavigator();
 
@@ -14,6 +20,14 @@ const theme = {
 };
 
 const App = () => {
+  let [fontsLoaded] = useFonts({
+    Poppins_300Light,
+    Poppins_400Regular,
+    Poppins_700Bold,
+  });
+
+  if (!fontsLoaded) return null;
+
   return (
     <NavigationContainer theme={theme}>
       <Stack.Navigator
@@ -22,18 +36,10 @@ const App = () => {
       >
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Details" component={Details} />
+        <Stack.Screen name="Favourites" component={Favourites} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
 export default App;
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: "white",
-//     alignItems: "center",
-//     justifyContent: "center",
-//   },
-// });
