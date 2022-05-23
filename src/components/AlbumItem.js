@@ -33,6 +33,8 @@ const AlbumItem = ({ item }) => {
   );
 };
 
+export default AlbumItem;
+
 const styles = StyleSheet.create({
   albumContainer: {
     marginHorizontal: 20,
@@ -73,5 +75,3 @@ const styles = StyleSheet.create({
     color: COLORS.darkGray,
   },
 });
-
-export default AlbumItem;

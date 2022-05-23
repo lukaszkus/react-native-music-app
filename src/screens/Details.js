@@ -17,6 +17,8 @@ const Details = ({ route, navigation }) => {
 
   console.log(data);
 
+  const artistLink = data["im:artist"]?.attributes;
+
   return (
     <SafeAreaView style={styles.mainContainer}>
       <View style={styles.imageContainer}>
@@ -47,6 +49,24 @@ const Details = ({ route, navigation }) => {
         <Text style={styles.headingTitle}>{data["im:name"].label}</Text>
         <Text style={styles.headingArtist}>{data["im:artist"].label}</Text>
       </View>
+
+      <View style={{ padding: 20 }}>
+        <Text style={styles.headingArtist}>
+          Genre: {data.category.attributes.label}
+        </Text>
+        <Text style={styles.headingArtist}>
+          Release date: {data["im:releaseDate"].attributes.label}
+        </Text>
+        <Text style={styles.headingArtist}>Rights: {data.rights.label}</Text>
+        <Text style={styles.headingArtist}>
+          Album Link: {data.link.attributes.href}
+        </Text>
+        {artistLink === undefined ? null : (
+          <Text style={styles.headingArtist}>
+            Artist Link: {data["im:artist"].attributes.href}
+          </Text>
+        )}
+      </View>
     </SafeAreaView>
   );
 };
@@ -59,7 +79,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   imageContainer: {
-    width: "100%",
+    // width: "100%",
     height: 240,
     backgroundColor: COLORS.white,
     borderBottomLeftRadius: 20,

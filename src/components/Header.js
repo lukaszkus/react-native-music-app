@@ -1,9 +1,8 @@
 import React from "react";
 import { Image, StyleSheet, Text, TextInput, View } from "react-native";
 
-import Icon from "./Icon";
-
 import { assets, COLORS } from "../constants";
+import Icon from "./Icon";
 
 const Header = ({ filter, setFilter }) => {
   return (
@@ -13,12 +12,11 @@ const Header = ({ filter, setFilter }) => {
         <Icon iconUrl={assets.filter} iconWidth={23} iconHeight={30} />
       </View>
       <View>
-        {/* <Text style={styles.inputTitle}>Search albums</Text> */}
         <View style={styles.inputContainer}>
           <Image style={styles.inputIcon} source={assets.searchDark} />
           <TextInput
             style={styles.input}
-            placeholder="Search albums"
+            placeholder="Type to search albums"
             value={filter}
             onChangeText={setFilter}
           />

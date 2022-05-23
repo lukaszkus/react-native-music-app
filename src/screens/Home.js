@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import {
   ActivityIndicator,
+  Image,
   StatusBar,
   SafeAreaView,
   StyleSheet,
@@ -51,8 +52,7 @@ const Home = () => {
         <View
           style={{
             zIndex: 0,
-          }}
-        >
+          }}>
           {isLoading ? (
             <ActivityIndicator
               size={60}
@@ -88,15 +88,13 @@ const Home = () => {
             shadowOpacity: 0.5,
             shadowRadius: 10,
             elevation: 24,
-          }}
-        >
+          }}>
           <View
             style={{
               width: "100%",
               flexDirection: "row",
               justifyContent: "space-evenly",
-            }}
-          >
+            }}>
             <Icon
               iconUrl={assets.home}
               iconWidth={30}
@@ -122,16 +120,25 @@ const Home = () => {
             right: 0,
             left: 0,
             zIndex: -1,
-          }}
-        >
+          }}>
           <View
             style={{
               height: 240,
               backgroundColor: COLORS.accent,
               borderBottomLeftRadius: 20,
               borderBottomRightRadius: 20,
-            }}
-          />
+            }}>
+            <Image
+              style={{
+                width: "100%",
+                height: "100%",
+                borderBottomLeftRadius: 20,
+                borderBottomRightRadius: 20,
+              }}
+              source={assets.splashbg}
+              resizeMode="cover"
+            />
+          </View>
         </View>
       </View>
     </SafeAreaView>
