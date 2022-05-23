@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   },
   headerLogo: {
     width: 62,
-    height: 45,
+    height: 45.5,
   },
   inputContainer: {
     flex: 1,

@@ -2,6 +2,7 @@ import React from "react";
 import {
   Image,
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   StatusBar,
   Text,
@@ -21,52 +22,106 @@ const Details = ({ route, navigation }) => {
 
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <View style={styles.imageContainer}>
-        <Image
-          source={{ uri: `${data["im:image"][2].label}` }}
-          style={styles.bluredImage}
-          resizeMode="cover"
-          blurRadius={2}
-        />
-        <View style={styles.buttonsContainer}>
-          <Button
-            iconUrl={assets.arrowLeft}
-            iconHeight={15}
-            iconWidth={15}
-            handlePress={() => navigation.goBack()}
-          />
-          <Button iconUrl={assets.heart} iconHeight={20} iconWidth={20} />
-        </View>
-
-        <View style={styles.albumCoverContainer}>
+      <ScrollView>
+        <View style={styles.imageContainer}>
           <Image
-            style={styles.albumCover}
             source={{ uri: `${data["im:image"][2].label}` }}
+            style={styles.bluredImage}
+            resizeMode="cover"
+            blurRadius={2}
           />
-        </View>
-      </View>
-      <View style={styles.headingContainer}>
-        <Text style={styles.headingTitle}>{data["im:name"].label}</Text>
-        <Text style={styles.headingArtist}>{data["im:artist"].label}</Text>
-      </View>
+          <View style={styles.buttonsContainer}>
+            <Button
+              iconUrl={assets.arrowLeft}
+              buttonWidth={45}
+              buttonHeight={45}
+              iconHeight={18}
+              iconWidth={18}
+              handlePress={() => navigation.goBack()}
+            />
+            <Button
+              iconUrl={assets.heart}
+              buttonWidth={45}
+              buttonHeight={45}
+              iconHeight={25}
+              iconWidth={25}
+            />
+          </View>
 
-      <View style={{ padding: 20 }}>
-        <Text style={styles.headingArtist}>
-          Genre: {data.category.attributes.label}
-        </Text>
-        <Text style={styles.headingArtist}>
-          Release date: {data["im:releaseDate"].attributes.label}
-        </Text>
-        <Text style={styles.headingArtist}>Rights: {data.rights.label}</Text>
-        <Text style={styles.headingArtist}>
-          Album Link: {data.link.attributes.href}
-        </Text>
-        {artistLink === undefined ? null : (
-          <Text style={styles.headingArtist}>
-            Artist Link: {data["im:artist"].attributes.href}
+          <View style={styles.albumCoverContainer}>
+            <Image
+              style={styles.albumCover}
+              source={{ uri: `${data["im:image"][2].label}` }}
+              resizeMode="cover"
+            />
+          </View>
+          <View style={styles.albumInfoContainer}>
+            <View style={{ marginRight: 10 }}>
+              <Text style={styles.categoryText}>Genre:</Text>
+              <Text
+                style={{
+                  fontFamily: "Poppins_400Regular",
+                }}
+              >
+                {data.category.attributes.label.toUpperCase()}
+              </Text>
+            </View>
+            <View>
+              <Text style={styles.categoryText}>Release date:</Text>
+              <Text
+                style={{
+                  fontFamily: "Poppins_400Regular",
+                }}
+              >
+                {data["im:releaseDate"].attributes.label.toUpperCase()}
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View style={styles.headingContainer}>
+          <View>
+            <Text style={styles.categoryText}>Album:</Text>
+            <Text style={styles.headingTitle}>{data["im:name"].label}</Text>
+            <Text style={styles.categoryText} numberOfLines={2}>
+              {data.rights.label}
+            </Text>
+          </View>
+          <View style={{ marginTop: 10 }}>
+            <Text style={styles.categoryText}>Artist:</Text>
+            <Text style={styles.headingArtist}>{data["im:artist"].label}</Text>
+          </View>
+        </View>
+
+        <View
+          style={{
+            paddingHorizontal: 20,
+            marginBottom: 30,
+            width: "100%",
+          }}
+        >
+          <Text style={{ ...styles.categoryText, marginBottom: 10 }}>
+            View on Apple Music:
           </Text>
-        )}
-      </View>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-evenly" }}
+          >
+            <Button
+              title="Go to ALBUM"
+              buttonWidth="auto"
+              buttonHeight="auto"
+            />
+            <Button
+              title="Go to ARTIST"
+              buttonWidth="auto"
+              buttonHeight="auto"
+            />
+          </View>
+          {/* <Text>Album Link: {data.link.attributes.href}</Text>
+        {artistLink === undefined ? null : (
+          <Text>Artist Link: {data["im:artist"].attributes.href}</Text>
+        )} */}
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -76,27 +131,30 @@ export default Details;
 const styles = StyleSheet.create({
   mainContainer: {
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-    flex: 1,
+    // flex: 1,
   },
+
   imageContainer: {
-    // width: "100%",
-    height: 240,
+    height: 340,
     backgroundColor: COLORS.white,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
   },
+
   bluredImage: {
     width: "100%",
     height: "100%",
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
   },
+
   albumCoverContainer: {
-    width: 150,
+    flex: 1,
+    width: 100,
     height: 150,
     borderRadius: 10,
     position: "absolute",
-    bottom: -60,
+    bottom: -80,
     left: 20,
     shadowColor: "#000",
     shadowOffset: {
@@ -107,17 +165,45 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     elevation: 24,
   },
+
   albumCover: {
     width: 150,
     height: 150,
     borderRadius: 10,
   },
+
+  albumInfoContainer: {
+    position: "absolute",
+    left: 180,
+    bottom: -85,
+  },
+
   headingContainer: {
     padding: 20,
-    marginTop: 60,
+    marginTop: 75,
   },
-  headingTitle: { fontFamily: "Poppins_700Bold", fontSize: 24 },
-  headingArtist: { fontFamily: "Poppins_400Regular", fontSize: 14 },
+
+  categoryText: {
+    fontSize: 10,
+    color: COLORS.darkGray,
+    fontFamily: "Poppins_300Light_Italic",
+    lineHeight: 15,
+    marginBottom: -3,
+  },
+
+  headingTitle: {
+    fontFamily: "Poppins_700Bold",
+    fontSize: 24,
+    lineHeight: 30,
+    paddingVertical: 3,
+  },
+
+  headingArtist: {
+    fontFamily: "Poppins_500Medium",
+    fontSize: 16,
+    lineHeight: 20,
+    paddingVertical: 3,
+  },
 
   buttonsContainer: {
     flex: 1,

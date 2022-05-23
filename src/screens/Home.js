@@ -20,10 +20,12 @@ const endpointURL = "https://itunes.apple.com/us/rss/topalbums/limit=100/json";
 const Home = () => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [lastUpdate, setLastUpdate] = useState("");
   const [filter, setFilter] = useState("");
   const navigation = useNavigation();
 
   // console.log(filter);
+  console.log(lastUpdate);
 
   const windowWidth = Dimensions.get("window").width / 2;
   const windowHeight = Dimensions.get("window").height / 2;
@@ -33,8 +35,10 @@ const Home = () => {
       .get(endpointURL)
       .then((res) => {
         let data = res.data.feed.entry;
+        let update = res.data.feed.updated.label;
         // console.log(data);
         setData(data);
+        setLastUpdate(update);
         setLoading(false);
       })
       .catch((err) => {
@@ -52,7 +56,8 @@ const Home = () => {
         <View
           style={{
             zIndex: 0,
-          }}>
+          }}
+        >
           {isLoading ? (
             <ActivityIndicator
               size={60}
@@ -64,6 +69,7 @@ const Home = () => {
               data={filteredData}
               filter={filter}
               setFilter={setFilter}
+              lastUpdate={lastUpdate}
             />
           )}
         </View>
@@ -88,13 +94,15 @@ const Home = () => {
             shadowOpacity: 0.5,
             shadowRadius: 10,
             elevation: 24,
-          }}>
+          }}
+        >
           <View
             style={{
               width: "100%",
               flexDirection: "row",
               justifyContent: "space-evenly",
-            }}>
+            }}
+          >
             <Icon
               iconUrl={assets.home}
               iconWidth={30}
@@ -120,14 +128,16 @@ const Home = () => {
             right: 0,
             left: 0,
             zIndex: -1,
-          }}>
+          }}
+        >
           <View
             style={{
               height: 240,
               backgroundColor: COLORS.accent,
               borderBottomLeftRadius: 20,
               borderBottomRightRadius: 20,
-            }}>
+            }}
+          >
             <Image
               style={{
                 width: "100%",

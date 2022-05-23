@@ -3,7 +3,9 @@ import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import {
   useFonts,
   Poppins_300Light,
+  Poppins_300Light_Italic,
   Poppins_400Regular,
+  Poppins_500Medium,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
 
@@ -22,7 +24,9 @@ const theme = {
 const App = () => {
   let [fontsLoaded] = useFonts({
     Poppins_300Light,
+    Poppins_300Light_Italic,
     Poppins_400Regular,
+    Poppins_500Medium,
     Poppins_700Bold,
   });
 

@@ -1,10 +1,11 @@
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList } from "react-native";
 
 import AlbumItem from "./AlbumItem";
 import AlbumEmptyItem from "./AlbumEmptyItem";
 import Header from "./Header";
+import Footer from "./Footer";
 
-const AlbumList = ({ data, filter, setFilter }) => {
+const AlbumList = ({ data, filter, setFilter, lastUpdate }) => {
   return (
     <FlatList
       data={data}
@@ -13,13 +14,9 @@ const AlbumList = ({ data, filter, setFilter }) => {
       showsVerticalScrollIndicator={false}
       ListHeaderComponent={<Header filter={filter} setFilter={setFilter} />}
       ListEmptyComponent={<AlbumEmptyItem />}
-      // style={styles.listContainer}
+      ListFooterComponent={<Footer data={data} lastUpdate={lastUpdate} />}
     />
   );
 };
 
 export default AlbumList;
-
-// const styles = StyleSheet.create({
-//   listContainer: { flex: 1 },
-// });

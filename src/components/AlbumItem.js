@@ -25,6 +25,8 @@ const AlbumItem = ({ item }) => {
       </View>
       <Button
         iconUrl={assets.arrowRight}
+        buttonWidth={35}
+        buttonHeight={35}
         iconWidth={15}
         iconHeight={15}
         handlePress={() => navigation.navigate("Details", item)}
