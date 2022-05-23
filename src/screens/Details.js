@@ -103,7 +103,7 @@ const Details = ({ route, navigation }) => {
             View on Apple Music:
           </Text>
           <View
-            style={{ flexDirection: "row", justifyContent: "space-evenly" }}
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
             <Button
               title="Go to ALBUM"

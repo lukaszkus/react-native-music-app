@@ -21,7 +21,7 @@ const Button = ({
           style={{
             color: COLORS.white,
             paddingVertical: 12,
-            paddingHorizontal: 25,
+            paddingHorizontal: 35,
           }}
         >
           {title}

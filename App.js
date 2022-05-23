@@ -13,13 +13,13 @@ import { Details, Favourites, Home } from "./src/screens";
 
 const Stack = createNativeStackNavigator();
 
-const theme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    background: "transparent",
-  },
-};
+// const theme = {
+//   ...DefaultTheme,
+//   colors: {
+//     ...DefaultTheme.colors,
+//     background: "transparent",
+//   },
+// };
 
 const App = () => {
   let [fontsLoaded] = useFonts({
@@ -33,7 +33,7 @@ const App = () => {
   if (!fontsLoaded) return null;
 
   return (
-    <NavigationContainer theme={theme}>
+    <NavigationContainer>
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
         initialRouteName="Home"
