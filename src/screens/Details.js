@@ -8,10 +8,10 @@ import {
   Text,
   View,
 } from "react-native";
-
-import { Button } from "../components";
+import * as WebBrowser from "expo-web-browser";
 
 import { assets, COLORS } from "../constants";
+import { Button } from "../components";
 
 const Details = ({ route, navigation }) => {
   const data = route.params;
@@ -109,17 +109,21 @@ const Details = ({ route, navigation }) => {
               title="Go to ALBUM"
               buttonWidth="auto"
               buttonHeight="auto"
+              handlePress={() =>
+                WebBrowser.openBrowserAsync(data.link.attributes.href)
+              }
             />
-            <Button
-              title="Go to ARTIST"
-              buttonWidth="auto"
-              buttonHeight="auto"
-            />
+            {artistLink === undefined ? null : (
+              <Button
+                title="Go to ARTIST"
+                buttonWidth="auto"
+                buttonHeight="auto"
+                handlePress={() =>
+                  WebBrowser.openBrowserAsync(data["im:artist"].attributes.href)
+                }
+              />
+            )}
           </View>
-          {/* <Text>Album Link: {data.link.attributes.href}</Text>
-        {artistLink === undefined ? null : (
-          <Text>Artist Link: {data["im:artist"].attributes.href}</Text>
-        )} */}
         </View>
       </ScrollView>
     </SafeAreaView>
