@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 
-import { COLORS } from "../constants";
+import { COLORS, SHADOW } from "../constants";
 
 const Button = ({
   iconUrl,
@@ -14,18 +14,11 @@ const Button = ({
   return (
     <TouchableOpacity
       style={{ ...styles.container, width: buttonWidth, height: buttonHeight }}
+      activeOpacity={0.6}
       onPress={handlePress}
     >
       {title ? (
-        <Text
-          style={{
-            color: COLORS.white,
-            paddingVertical: 12,
-            paddingHorizontal: 35,
-          }}
-        >
-          {title}
-        </Text>
+        <Text style={styles.buttonTitle}>{title}</Text>
       ) : (
         <Image
           source={iconUrl}
@@ -44,13 +37,11 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.accent,
     justifyContent: "center",
     alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 6,
-    },
-    shadowOpacity: 0.37,
-    shadowRadius: 7.49,
-    elevation: 12,
+    ...SHADOW,
+  },
+  buttonTitle: {
+    color: COLORS.white,
+    paddingVertical: 12,
+    paddingHorizontal: 35,
   },
 });

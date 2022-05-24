@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import {
   useFonts,
   Poppins_300Light,
@@ -12,14 +12,6 @@ import {
 import { Details, Favourites, Home } from "./src/screens";
 
 const Stack = createNativeStackNavigator();
-
-// const theme = {
-//   ...DefaultTheme,
-//   colors: {
-//     ...DefaultTheme.colors,
-//     background: "transparent",
-//   },
-// };
 
 const App = () => {
   let [fontsLoaded] = useFonts({

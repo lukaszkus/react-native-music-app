@@ -1,7 +1,7 @@
 import { View, StyleSheet, Text } from "react-native";
 import React from "react";
 
-import { COLORS } from "../constants";
+import { COLORS, SHADOW } from "../constants";
 
 const AlbumEmptyItem = () => {
   return (
@@ -16,7 +16,6 @@ export default AlbumEmptyItem;
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 20,
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "flex-start",
@@ -25,14 +24,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     padding: 20,
     height: 100,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 10,
-    },
-    shadowOpacity: 0.5,
-    shadowRadius: 10,
-    elevation: 24,
+    ...SHADOW,
   },
 
   textBold: {

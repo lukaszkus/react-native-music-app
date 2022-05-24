@@ -1,4 +1,4 @@
 import assets from "./assets";
-import { COLORS } from "./theme";
+import { COLORS, SHADOW } from "./theme";
 
-export { assets, COLORS };
+export { assets, COLORS, SHADOW };

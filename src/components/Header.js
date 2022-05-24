@@ -1,7 +1,7 @@
 import React from "react";
-import { Image, StyleSheet, Text, TextInput, View } from "react-native";
+import { Image, StyleSheet, TextInput, View } from "react-native";
 
-import { assets, COLORS } from "../constants";
+import { assets, COLORS, SHADOW } from "../constants";
 import Icon from "./Icon";
 
 const Header = ({ search, setSearch }) => {
@@ -30,17 +30,20 @@ export default Header;
 
 const styles = StyleSheet.create({
   headerContainer: {
-    padding: 20,
+    paddingVertical: 20,
   },
+
   logoContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-end",
   },
+
   headerLogo: {
     width: 62,
     height: 45.5,
   },
+
   inputContainer: {
     flex: 1,
     flexDirection: "row",
@@ -50,21 +53,17 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginBottom: 20,
     borderRadius: 30,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 10,
-    },
-    shadowOpacity: 0.5,
-    shadowRadius: 10,
-    elevation: 24,
+    ...SHADOW,
   },
+
   inputTitle: {
     paddingVertical: 10,
   },
+
   input: {
     flex: 1,
   },
+
   inputIcon: {
     width: 15,
     height: 15,

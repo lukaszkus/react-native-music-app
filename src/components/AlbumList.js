@@ -20,15 +20,16 @@ const AlbumList = ({ data, search, setSearch, lastUpdate, toggleView }) => {
       ListHeaderComponent={<Header search={search} setSearch={setSearch} />}
       ListEmptyComponent={<AlbumEmptyItem />}
       ListFooterComponent={<Footer data={data} lastUpdate={lastUpdate} />}
-      // style={styles.container}
+      columnWrapperStyle={toggleView === 1 ? null : styles.listContainer}
+      contentContainerStyle={{ paddingHorizontal: 20 }}
     />
   );
 };
 
 export default AlbumList;
 
-// const styles = StyleSheet.create({
-//   container: {
-//     paddingHorizontal: 20,
-//   },
-// });
+const styles = StyleSheet.create({
+  listContainer: {
+    justifyContent: "space-between",
+  },
+});

@@ -3,7 +3,7 @@ import { Image, TouchableOpacity } from "react-native";
 
 const Icon = ({ iconUrl, iconWidth, iconHeight, handlePress }) => {
   return (
-    <TouchableOpacity onPress={handlePress}>
+    <TouchableOpacity activeOpacity={0.6} onPress={handlePress}>
       <Image
         source={iconUrl}
         style={{ width: iconWidth, height: iconHeight }}

@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import * as WebBrowser from "expo-web-browser";
 
-import { assets, COLORS } from "../constants";
+import { assets, COLORS, SHADOW } from "../constants";
 import { Button } from "../components";
 
 const Details = ({ route, navigation }) => {
@@ -59,7 +59,8 @@ const Details = ({ route, navigation }) => {
               <Text
                 style={{
                   fontFamily: "Poppins_400Regular",
-                }}>
+                }}
+              >
                 {data.category.attributes.label.toUpperCase()}
               </Text>
             </View>
@@ -68,7 +69,8 @@ const Details = ({ route, navigation }) => {
               <Text
                 style={{
                   fontFamily: "Poppins_400Regular",
-                }}>
+                }}
+              >
                 {data["im:releaseDate"].attributes.label.toUpperCase()}
               </Text>
             </View>
@@ -93,14 +95,16 @@ const Details = ({ route, navigation }) => {
             paddingHorizontal: 20,
             marginBottom: 30,
             width: "100%",
-          }}>
+          }}
+        >
           <Text style={{ ...styles.categoryText, marginBottom: 10 }}>
             View on Apple Music:
           </Text>
           <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}>
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
             <Button
-              title="Go to ALBUM"
+              title="View ALBUM"
               buttonWidth="auto"
               buttonHeight="auto"
               handlePress={() =>
@@ -109,7 +113,7 @@ const Details = ({ route, navigation }) => {
             />
             {artistLink === undefined ? null : (
               <Button
-                title="Go to ARTIST"
+                title="View ARTIST"
                 buttonWidth="auto"
                 buttonHeight="auto"
                 handlePress={() =>
@@ -129,11 +133,10 @@ export default Details;
 const styles = StyleSheet.create({
   mainContainer: {
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-    // flex: 1,
   },
 
   imageContainer: {
-    height: 340,
+    height: 320,
     backgroundColor: COLORS.white,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
@@ -154,14 +157,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: -80,
     left: 20,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 10,
-    },
-    shadowOpacity: 0.5,
-    shadowRadius: 10,
-    elevation: 24,
+    ...SHADOW,
   },
 
   albumCover: {
@@ -204,7 +200,7 @@ const styles = StyleSheet.create({
   },
 
   buttonsContainer: {
-    flex: 1,
+    // flex: 1,
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",

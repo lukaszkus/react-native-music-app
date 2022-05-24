@@ -1,86 +1,99 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-import { assets, COLORS } from "../constants";
+import { assets, COLORS, SHADOW } from "../constants";
 
 import Button from "./Button";
 
-const AlbumItem = ({ item }) => {
+const AlbumItem = ({ item, toggleView }) => {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.albumContainerColumns}>
+    <TouchableOpacity
+      style={
+        toggleView === 1 ? styles.albumContainerLi : styles.albumContainerCol
+      }
+      activeOpacity={0.6}
+      onPress={() => navigation.navigate("Details", item)}
+    >
       <Image
-        style={styles.albumCover}
+        style={toggleView === 1 ? styles.albumCoverLi : styles.albumCoverCol}
         source={{ uri: `${item["im:image"][2].label}` }}
       />
-      <View style={styles.textContainer}>
-        <Text style={styles.albumTitle} numberOfLines={2}>
+      <View
+        style={
+          toggleView === 1 ? styles.textContainerLi : styles.textContainerCol
+        }
+      >
+        <Text
+          style={styles.albumTitle}
+          numberOfLines={toggleView === 1 ? 2 : 1}
+        >
           {item["im:name"].label}
         </Text>
         <Text numberOfLines={1} style={styles.albumArtist}>
           {item["im:artist"].label}
         </Text>
       </View>
-      <Button
-        iconUrl={assets.arrowRight}
-        buttonWidth={35}
-        buttonHeight={35}
-        iconWidth={15}
-        iconHeight={15}
-        handlePress={() => navigation.navigate("Details", item)}
-      />
-    </View>
+      <View style={{ alignSelf: "flex-end" }}>
+        <Button
+          iconUrl={assets.arrowRight}
+          buttonWidth={25}
+          buttonHeight={25}
+          iconWidth={10}
+          iconHeight={10}
+        />
+      </View>
+    </TouchableOpacity>
   );
 };
 
 export default AlbumItem;
 
 const styles = StyleSheet.create({
-  albumContainerColumns: {
-    // width: "50%",
-    // marginHorizontal: 10,
+  albumContainerLi: {
     flexDirection: "row",
     alignItems: "center",
     borderRadius: 20,
     marginBottom: 24,
     backgroundColor: COLORS.white,
     padding: 12,
-    // shadowColor: "#000",
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 10,
-    // },
-    // shadowOpacity: 0.5,
-    // shadowRadius: 10,
-    // elevation: 24,
-  },
-  albumContainer: {
-    marginHorizontal: 20,
-    flexDirection: "row",
-    alignItems: "center",
-    borderRadius: 20,
-    marginBottom: 24,
-    backgroundColor: COLORS.white,
-    padding: 12,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 10,
-    },
-    shadowOpacity: 0.5,
-    shadowRadius: 10,
-    elevation: 24,
+    ...SHADOW,
   },
 
-  albumCover: {
-    width: 80,
-    height: 80,
+  albumContainerCol: {
+    width: "47%",
+    flexDirection: "column",
+    borderRadius: 20,
+    marginBottom: 24,
+    backgroundColor: COLORS.white,
+    padding: 12,
+    ...SHADOW,
+  },
+
+  albumCoverLi: {
+    width: 85,
+    height: 85,
     borderRadius: 10,
   },
 
-  textContainer: { flex: 1, paddingHorizontal: 12 },
+  albumCoverCol: {
+    width: 125,
+    height: 125,
+    borderRadius: 10,
+  },
+
+  textContainerLi: {
+    flex: 1,
+    paddingHorizontal: 12,
+  },
+
+  textContainerCol: {
+    flex: 1,
+    paddingTop: 12,
+    paddingBottom: 6,
+  },
 
   albumTitle: {
     fontFamily: "Poppins_700Bold",
