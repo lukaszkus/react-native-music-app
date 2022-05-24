@@ -1,22 +1,34 @@
-import { FlatList } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 
 import AlbumItem from "./AlbumItem";
 import AlbumEmptyItem from "./AlbumEmptyItem";
 import Header from "./Header";
 import Footer from "./Footer";
 
-const AlbumList = ({ data, filter, setFilter, lastUpdate }) => {
+const AlbumList = ({ data, search, setSearch, lastUpdate, toggleView }) => {
   return (
     <FlatList
       data={data}
       keyExtractor={(item) => item.id.attributes["im:id"]}
-      renderItem={({ item }) => <AlbumItem item={item} />}
+      renderItem={({ item }) => (
+        <AlbumItem item={item} toggleView={toggleView} />
+      )}
+      initialNumToRender={6}
       showsVerticalScrollIndicator={false}
-      ListHeaderComponent={<Header filter={filter} setFilter={setFilter} />}
+      numColumns={toggleView}
+      key={toggleView}
+      ListHeaderComponent={<Header search={search} setSearch={setSearch} />}
       ListEmptyComponent={<AlbumEmptyItem />}
       ListFooterComponent={<Footer data={data} lastUpdate={lastUpdate} />}
+      // style={styles.container}
     />
   );
 };
 
 export default AlbumList;
+
+// const styles = StyleSheet.create({
+//   container: {
+//     paddingHorizontal: 20,
+//   },
+// });

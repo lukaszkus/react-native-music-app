@@ -10,7 +10,7 @@ const AlbumItem = ({ item }) => {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.albumContainer}>
+    <View style={styles.albumContainerColumns}>
       <Image
         style={styles.albumCover}
         source={{ uri: `${item["im:image"][2].label}` }}
@@ -38,6 +38,24 @@ const AlbumItem = ({ item }) => {
 export default AlbumItem;
 
 const styles = StyleSheet.create({
+  albumContainerColumns: {
+    // width: "50%",
+    // marginHorizontal: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    borderRadius: 20,
+    marginBottom: 24,
+    backgroundColor: COLORS.white,
+    padding: 12,
+    // shadowColor: "#000",
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 10,
+    // },
+    // shadowOpacity: 0.5,
+    // shadowRadius: 10,
+    // elevation: 24,
+  },
   albumContainer: {
     marginHorizontal: 20,
     flexDirection: "row",

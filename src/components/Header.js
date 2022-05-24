@@ -4,7 +4,7 @@ import { Image, StyleSheet, Text, TextInput, View } from "react-native";
 import { assets, COLORS } from "../constants";
 import Icon from "./Icon";
 
-const Header = ({ filter, setFilter }) => {
+const Header = ({ search, setSearch }) => {
   return (
     <View style={styles.headerContainer}>
       <View style={styles.logoContainer}>
@@ -17,8 +17,8 @@ const Header = ({ filter, setFilter }) => {
           <TextInput
             style={styles.input}
             placeholder="Type to search albums"
-            value={filter}
-            onChangeText={setFilter}
+            value={search}
+            onChangeText={setSearch}
           />
         </View>
       </View>

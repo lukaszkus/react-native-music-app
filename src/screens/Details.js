@@ -16,8 +16,6 @@ import { Button } from "../components";
 const Details = ({ route, navigation }) => {
   const data = route.params;
 
-  console.log(data);
-
   const artistLink = data["im:artist"]?.attributes;
 
   return (
@@ -61,8 +59,7 @@ const Details = ({ route, navigation }) => {
               <Text
                 style={{
                   fontFamily: "Poppins_400Regular",
-                }}
-              >
+                }}>
                 {data.category.attributes.label.toUpperCase()}
               </Text>
             </View>
@@ -71,8 +68,7 @@ const Details = ({ route, navigation }) => {
               <Text
                 style={{
                   fontFamily: "Poppins_400Regular",
-                }}
-              >
+                }}>
                 {data["im:releaseDate"].attributes.label.toUpperCase()}
               </Text>
             </View>
@@ -97,14 +93,12 @@ const Details = ({ route, navigation }) => {
             paddingHorizontal: 20,
             marginBottom: 30,
             width: "100%",
-          }}
-        >
+          }}>
           <Text style={{ ...styles.categoryText, marginBottom: 10 }}>
             View on Apple Music:
           </Text>
           <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
-          >
+            style={{ flexDirection: "row", justifyContent: "space-between" }}>
             <Button
               title="Go to ALBUM"
               buttonWidth="auto"
@@ -154,7 +148,7 @@ const styles = StyleSheet.create({
 
   albumCoverContainer: {
     flex: 1,
-    width: 100,
+    width: 150,
     height: 150,
     borderRadius: 10,
     position: "absolute",
@@ -178,7 +172,7 @@ const styles = StyleSheet.create({
 
   albumInfoContainer: {
     position: "absolute",
-    left: 180,
+    left: 190,
     bottom: -85,
   },
 

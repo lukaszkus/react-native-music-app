@@ -21,15 +21,17 @@ const Home = () => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [lastUpdate, setLastUpdate] = useState("");
-  const [filter, setFilter] = useState("");
+  const [search, setSearch] = useState("");
+  const [toggleView, setToggleView] = useState("");
   const navigation = useNavigation();
 
   // console.log(filter);
-  console.log(lastUpdate);
+  // console.log(lastUpdate);
 
   const windowWidth = Dimensions.get("window").width / 2;
   const windowHeight = Dimensions.get("window").height / 2;
 
+  //get data
   useEffect(() => {
     axios
       .get(endpointURL)
@@ -46,9 +48,25 @@ const Home = () => {
       });
   }, []);
 
-  const filteredData = data.filter((item) => {
-    return item.title.label.includes(filter);
+  //real time input search
+  const searchedData = data.filter((item) => {
+    return item.title.label.includes(search);
   });
+
+  //fiter data
+  const filterCategory = [
+    ...new Set(data.map((item) => item.category.attributes.label)),
+  ];
+  console.log(filterCategory);
+
+  //change list view to grid view
+  const handleToggleListView = () => {
+    setToggleView(1);
+  };
+
+  const handleToggleColumnView = () => {
+    setToggleView(2);
+  };
 
   return (
     <SafeAreaView style={styles.mainContainer}>
@@ -56,8 +74,8 @@ const Home = () => {
         <View
           style={{
             zIndex: 0,
-          }}
-        >
+            paddingHorizontal: 20,
+          }}>
           {isLoading ? (
             <ActivityIndicator
               size={60}
@@ -66,10 +84,11 @@ const Home = () => {
             />
           ) : (
             <AlbumList
-              data={filteredData}
-              filter={filter}
-              setFilter={setFilter}
+              data={searchedData}
+              search={search}
+              setSearch={setSearch}
               lastUpdate={lastUpdate}
+              toggleView={toggleView}
             />
           )}
         </View>
@@ -94,20 +113,18 @@ const Home = () => {
             shadowOpacity: 0.5,
             shadowRadius: 10,
             elevation: 24,
-          }}
-        >
+          }}>
           <View
             style={{
               width: "100%",
               flexDirection: "row",
               justifyContent: "space-evenly",
-            }}
-          >
+            }}>
             <Icon
               iconUrl={assets.home}
               iconWidth={30}
               iconHeight={30}
-              handlePress={() => setFilter("")}
+              handlePress={() => setSearch("")}
             />
             <Icon
               iconUrl={assets.heart}
@@ -115,8 +132,18 @@ const Home = () => {
               iconHeight={30}
               handlePress={() => navigation.navigate("Favourites")}
             />
-            <Icon iconUrl={assets.list} iconWidth={30} iconHeight={30} />
-            <Icon iconUrl={assets.tiles} iconWidth={30} iconHeight={30} />
+            <Icon
+              iconUrl={assets.list}
+              iconWidth={30}
+              iconHeight={30}
+              handlePress={() => handleToggleListView()}
+            />
+            <Icon
+              iconUrl={assets.tiles}
+              iconWidth={30}
+              iconHeight={30}
+              handlePress={() => handleToggleColumnView()}
+            />
           </View>
         </View>
 
@@ -128,16 +155,14 @@ const Home = () => {
             right: 0,
             left: 0,
             zIndex: -1,
-          }}
-        >
+          }}>
           <View
             style={{
               height: 240,
               backgroundColor: COLORS.accent,
               borderBottomLeftRadius: 20,
               borderBottomRightRadius: 20,
-            }}
-          >
+            }}>
             <Image
               style={{
                 width: "100%",
