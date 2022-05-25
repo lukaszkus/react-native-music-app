@@ -5,13 +5,24 @@ import AlbumEmptyItem from "./AlbumEmptyItem";
 import Header from "./Header";
 import Footer from "./Footer";
 
-const AlbumList = ({ data, search, setSearch, lastUpdate, toggleView }) => {
+const AlbumList = ({
+  data,
+  search,
+  setSearch,
+  lastUpdate,
+  toggleView,
+  handleAddToFav,
+}) => {
   return (
     <FlatList
       data={data}
       keyExtractor={(item) => item.id.attributes["im:id"]}
       renderItem={({ item }) => (
-        <AlbumItem item={item} toggleView={toggleView} />
+        <AlbumItem
+          item={item}
+          toggleView={toggleView}
+          handleAddToFav={handleAddToFav}
+        />
       )}
       initialNumToRender={6}
       showsVerticalScrollIndicator={false}

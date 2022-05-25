@@ -14,7 +14,7 @@ import { assets, COLORS, SHADOW } from "../constants";
 import { Button } from "../components";
 
 const Details = ({ route, navigation }) => {
-  const data = route.params;
+  const { data, handleAddToFav } = route.params;
 
   const artistLink = data["im:artist"]?.attributes;
 
@@ -43,6 +43,7 @@ const Details = ({ route, navigation }) => {
               buttonHeight={45}
               iconHeight={25}
               iconWidth={25}
+              handlePress={() => handleAddToFav()}
             />
           </View>
 
@@ -59,8 +60,7 @@ const Details = ({ route, navigation }) => {
               <Text
                 style={{
                   fontFamily: "Poppins_400Regular",
-                }}
-              >
+                }}>
                 {data.category.attributes.label.toUpperCase()}
               </Text>
             </View>
@@ -69,8 +69,7 @@ const Details = ({ route, navigation }) => {
               <Text
                 style={{
                   fontFamily: "Poppins_400Regular",
-                }}
-              >
+                }}>
                 {data["im:releaseDate"].attributes.label.toUpperCase()}
               </Text>
             </View>
@@ -95,14 +94,12 @@ const Details = ({ route, navigation }) => {
             paddingHorizontal: 20,
             marginBottom: 30,
             width: "100%",
-          }}
-        >
+          }}>
           <Text style={{ ...styles.categoryText, marginBottom: 10 }}>
             View on Apple Music:
           </Text>
           <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
-          >
+            style={{ flexDirection: "row", justifyContent: "space-between" }}>
             <Button
               title="View ALBUM"
               buttonWidth="auto"

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
 import {
   ActivityIndicator,
   Image,
@@ -11,7 +10,7 @@ import {
 } from "react-native";
 import axios from "axios";
 
-import { AlbumList, Icon } from "../components";
+import { AlbumList, BottomMenu } from "../components";
 
 import { assets, COLORS } from "../constants";
 
@@ -23,12 +22,11 @@ const Home = () => {
   const [lastUpdate, setLastUpdate] = useState("");
   const [search, setSearch] = useState("");
   const [toggleView, setToggleView] = useState(1);
-  const navigation = useNavigation();
+  const [favourites, setFavourites] = useState([]);
 
   // console.log(filter);
   // console.log(lastUpdate);
 
-  const windowWidth = Dimensions.get("window").width / 2;
   const windowHeight = Dimensions.get("window").height / 2;
 
   //get data
@@ -68,118 +66,91 @@ const Home = () => {
     setToggleView(2);
   };
 
+  //add to favourites
+  const handleAddToFav = (album) => {
+    setFavourites([...favourites, album]);
+    console.log("added");
+  };
+
+  //remove from favourites
+  const handleRemoveFromFav = (album) => {
+    const favList = favourites.filter(
+      (item) => item.id.attributes["im:id"] !== album.id.attributes["im:id"]
+    );
+    setFavourites(favList);
+  };
+
+  //is album exist in favouroites
+  const isExistInFav = (album) => {
+    if (
+      favourites.filter(
+        (item) => item.id.attributes["im:id"] === album.id.attributes["im:id"]
+      ).lenght > 0
+    ) {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <View style={{ flex: 1 }}>
-        <View
-          style={{
-            zIndex: 0,
-          }}
-        >
-          {isLoading ? (
-            <ActivityIndicator
-              size={60}
-              color={COLORS.accent}
-              style={{ top: windowHeight }}
-            />
-          ) : (
+      {isLoading ? (
+        <ActivityIndicator
+          size={60}
+          color={COLORS.accent}
+          style={{ top: windowHeight - 30 }}
+        />
+      ) : (
+        <View style={{ flex: 1 }}>
+          <View
+            style={{
+              zIndex: 0,
+            }}>
             <AlbumList
               data={searchedData}
               search={search}
               setSearch={setSearch}
               lastUpdate={lastUpdate}
               toggleView={toggleView}
-            />
-          )}
-        </View>
-
-        <View
-          style={{
-            zIndex: 1,
-            backgroundColor: COLORS.accent,
-            position: "absolute",
-            alignItems: "center",
-            justifyContent: "center",
-            bottom: 15,
-            left: windowWidth - 110,
-            width: 220,
-            height: 54,
-            borderRadius: 30,
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 10,
-            },
-            shadowOpacity: 0.5,
-            shadowRadius: 10,
-            elevation: 24,
-          }}
-        >
-          <View
-            style={{
-              width: "100%",
-              flexDirection: "row",
-              justifyContent: "space-evenly",
-            }}
-          >
-            <Icon
-              iconUrl={assets.home}
-              iconWidth={30}
-              iconHeight={30}
-              handlePress={() => setSearch("")}
-            />
-            <Icon
-              iconUrl={assets.heart}
-              iconWidth={30}
-              iconHeight={30}
-              handlePress={() => navigation.navigate("Favourites")}
-            />
-            <Icon
-              iconUrl={assets.list}
-              iconWidth={30}
-              iconHeight={30}
-              handlePress={() => handleToggleListView()}
-            />
-            <Icon
-              iconUrl={assets.tiles}
-              iconWidth={30}
-              iconHeight={30}
-              handlePress={() => handleToggleColumnView()}
+              handleAddToFav={handleAddToFav}
             />
           </View>
-        </View>
 
-        <View
-          style={{
-            position: "absolute",
-            top: 0,
-            bottom: 0,
-            right: 0,
-            left: 0,
-            zIndex: -1,
-          }}
-        >
+          <BottomMenu
+            handleToggleListView={handleToggleListView}
+            handleToggleColumnView={handleToggleColumnView}
+          />
+
           <View
             style={{
-              height: 240,
-              backgroundColor: COLORS.accent,
-              borderBottomLeftRadius: 20,
-              borderBottomRightRadius: 20,
-            }}
-          >
-            <Image
+              position: "absolute",
+              top: 0,
+              bottom: 0,
+              right: 0,
+              left: 0,
+              zIndex: -1,
+            }}>
+            <View
               style={{
-                width: "100%",
-                height: "100%",
+                height: 240,
+                backgroundColor: COLORS.accent,
                 borderBottomLeftRadius: 20,
                 borderBottomRightRadius: 20,
-              }}
-              source={assets.splashbg}
-              resizeMode="cover"
-            />
+              }}>
+              <Image
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  borderBottomLeftRadius: 20,
+                  borderBottomRightRadius: 20,
+                }}
+                source={assets.splashbg}
+                resizeMode="cover"
+              />
+            </View>
           </View>
         </View>
-      </View>
+      )}
     </SafeAreaView>
   );
 };
