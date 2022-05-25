@@ -6,27 +6,30 @@ import { assets, COLORS, SHADOW } from "../constants";
 
 import Button from "./Button";
 
-const AlbumItem = ({ item, toggleView, handleAddToFav }) => {
+const AlbumItem = ({
+  item,
+  toggleView,
+  handleAddToFav,
+  handleRemoveFromFav,
+  isExistInFav,
+}) => {
   const navigation = useNavigation();
-
-  // onPress={() =>
-  //   navigation.navigate('SecondPage', {
-  //     paramKey: userName,
-  //   })
-  // }
 
   return (
     <TouchableOpacity
       style={
         toggleView === 1 ? styles.albumContainerLi : styles.albumContainerCol
       }
-      activeOpacity={0.6}
+      activeOpacity={0.5}
       onPress={() =>
         navigation.navigate("Details", {
           data: item,
           handleAddToFav: handleAddToFav,
+          handleRemoveFromFav: handleRemoveFromFav,
+          isExistInFav: isExistInFav,
         })
-      }>
+      }
+    >
       <Image
         style={toggleView === 1 ? styles.albumCoverLi : styles.albumCoverCol}
         source={{ uri: `${item["im:image"][2].label}` }}
@@ -34,10 +37,12 @@ const AlbumItem = ({ item, toggleView, handleAddToFav }) => {
       <View
         style={
           toggleView === 1 ? styles.textContainerLi : styles.textContainerCol
-        }>
+        }
+      >
         <Text
           style={styles.albumTitle}
-          numberOfLines={toggleView === 1 ? 2 : 1}>
+          numberOfLines={toggleView === 1 ? 2 : 1}
+        >
           {item["im:name"].label}
         </Text>
         <Text numberOfLines={1} style={styles.albumArtist}>

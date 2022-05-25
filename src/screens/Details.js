@@ -11,10 +11,11 @@ import {
 import * as WebBrowser from "expo-web-browser";
 
 import { assets, COLORS, SHADOW } from "../constants";
-import { Button } from "../components";
+import { BottomMenu, Button, Icon } from "../components";
 
 const Details = ({ route, navigation }) => {
-  const { data, handleAddToFav } = route.params;
+  const { data, handleAddToFav, handleRemoveFromFav, isExistInFav } =
+    route.params;
 
   const artistLink = data["im:artist"]?.attributes;
 
@@ -25,8 +26,8 @@ const Details = ({ route, navigation }) => {
           <Image
             source={{ uri: `${data["im:image"][2].label}` }}
             style={styles.bluredImage}
-            resizeMode="cover"
             blurRadius={2}
+            resizeMode="cover"
           />
           <View style={styles.buttonsContainer}>
             <Button
@@ -38,12 +39,16 @@ const Details = ({ route, navigation }) => {
               handlePress={() => navigation.goBack()}
             />
             <Button
-              iconUrl={assets.heart}
+              iconUrl={isExistInFav(data) ? assets.heartFav : assets.heart}
               buttonWidth={45}
               buttonHeight={45}
               iconHeight={25}
               iconWidth={25}
-              handlePress={() => handleAddToFav()}
+              handlePress={() =>
+                isExistInFav(data)
+                  ? handleRemoveFromFav(data)
+                  : handleAddToFav(data)
+              }
             />
           </View>
 
@@ -60,7 +65,8 @@ const Details = ({ route, navigation }) => {
               <Text
                 style={{
                   fontFamily: "Poppins_400Regular",
-                }}>
+                }}
+              >
                 {data.category.attributes.label.toUpperCase()}
               </Text>
             </View>
@@ -69,7 +75,8 @@ const Details = ({ route, navigation }) => {
               <Text
                 style={{
                   fontFamily: "Poppins_400Regular",
-                }}>
+                }}
+              >
                 {data["im:releaseDate"].attributes.label.toUpperCase()}
               </Text>
             </View>
@@ -88,39 +95,43 @@ const Details = ({ route, navigation }) => {
             <Text style={styles.headingArtist}>{data["im:artist"].label}</Text>
           </View>
         </View>
-
-        <View
-          style={{
-            paddingHorizontal: 20,
-            marginBottom: 30,
-            width: "100%",
-          }}>
-          <Text style={{ ...styles.categoryText, marginBottom: 10 }}>
-            View on Apple Music:
-          </Text>
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}>
-            <Button
-              title="View ALBUM"
-              buttonWidth="auto"
-              buttonHeight="auto"
-              handlePress={() =>
-                WebBrowser.openBrowserAsync(data.link.attributes.href)
-              }
-            />
-            {artistLink === undefined ? null : (
-              <Button
-                title="View ARTIST"
-                buttonWidth="auto"
-                buttonHeight="auto"
-                handlePress={() =>
-                  WebBrowser.openBrowserAsync(data["im:artist"].attributes.href)
-                }
-              />
-            )}
-          </View>
-        </View>
       </ScrollView>
+      <BottomMenu>
+        <Icon
+          iconUrl={assets.home}
+          iconWidth={30}
+          iconHeight={30}
+          marginH={10}
+          handlePress={() => navigation.navigate("Home")}
+        />
+        <Icon
+          iconUrl={assets.heart}
+          iconWidth={30}
+          iconHeight={30}
+          marginH={10}
+          handlePress={() => navigation.navigate("Favourites")}
+        />
+        <Icon
+          iconUrl={assets.album}
+          iconWidth={35}
+          iconHeight={35}
+          marginH={10}
+          handlePress={() =>
+            WebBrowser.openBrowserAsync(data.link.attributes.href)
+          }
+        />
+        {artistLink === undefined ? null : (
+          <Icon
+            iconUrl={assets.artist}
+            iconWidth={35}
+            iconHeight={35}
+            marginH={10}
+            handlePress={() =>
+              WebBrowser.openBrowserAsync(data["im:artist"].attributes.href)
+            }
+          />
+        )}
+      </BottomMenu>
     </SafeAreaView>
   );
 };
@@ -130,6 +141,7 @@ export default Details;
 const styles = StyleSheet.create({
   mainContainer: {
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    flex: 1,
   },
 
   imageContainer: {

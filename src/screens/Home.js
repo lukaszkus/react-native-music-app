@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+
 import {
   ActivityIndicator,
   Image,
@@ -10,7 +12,7 @@ import {
 } from "react-native";
 import axios from "axios";
 
-import { AlbumList, BottomMenu } from "../components";
+import { AlbumList, BottomMenu, Icon } from "../components";
 
 import { assets, COLORS } from "../constants";
 
@@ -23,6 +25,7 @@ const Home = () => {
   const [search, setSearch] = useState("");
   const [toggleView, setToggleView] = useState(1);
   const [favourites, setFavourites] = useState([]);
+  const navigation = useNavigation();
 
   // console.log(filter);
   // console.log(lastUpdate);
@@ -69,7 +72,9 @@ const Home = () => {
   //add to favourites
   const handleAddToFav = (album) => {
     setFavourites([...favourites, album]);
-    console.log("added");
+    console.log(
+      `added + ${album["im:name"].label} + id: ${album.id.attributes["im:id"]}`
+    );
   };
 
   //remove from favourites
@@ -78,9 +83,10 @@ const Home = () => {
       (item) => item.id.attributes["im:id"] !== album.id.attributes["im:id"]
     );
     setFavourites(favList);
+    console.log("removed");
   };
 
-  //is album exist in favouroites
+  //is album exist in favourites
   const isExistInFav = (album) => {
     if (
       favourites.filter(
@@ -88,8 +94,9 @@ const Home = () => {
       ).lenght > 0
     ) {
       return true;
+    } else {
+      return false;
     }
-    return false;
   };
 
   return (
@@ -105,7 +112,8 @@ const Home = () => {
           <View
             style={{
               zIndex: 0,
-            }}>
+            }}
+          >
             <AlbumList
               data={searchedData}
               search={search}
@@ -113,13 +121,34 @@ const Home = () => {
               lastUpdate={lastUpdate}
               toggleView={toggleView}
               handleAddToFav={handleAddToFav}
+              handleRemoveFromFav={handleRemoveFromFav}
+              isExistInFav={isExistInFav}
             />
           </View>
 
-          <BottomMenu
-            handleToggleListView={handleToggleListView}
-            handleToggleColumnView={handleToggleColumnView}
-          />
+          <BottomMenu>
+            <Icon
+              iconUrl={assets.heart}
+              iconWidth={30}
+              iconHeight={30}
+              marginH={10}
+              handlePress={() => navigation.navigate("Favourites")}
+            />
+            <Icon
+              iconUrl={assets.list}
+              iconWidth={30}
+              iconHeight={30}
+              marginH={10}
+              handlePress={() => handleToggleListView()}
+            />
+            <Icon
+              iconUrl={assets.tiles}
+              iconWidth={30}
+              iconHeight={30}
+              marginH={10}
+              handlePress={() => handleToggleColumnView()}
+            />
+          </BottomMenu>
 
           <View
             style={{
@@ -129,14 +158,16 @@ const Home = () => {
               right: 0,
               left: 0,
               zIndex: -1,
-            }}>
+            }}
+          >
             <View
               style={{
                 height: 240,
                 backgroundColor: COLORS.accent,
                 borderBottomLeftRadius: 20,
                 borderBottomRightRadius: 20,
-              }}>
+              }}
+            >
               <Image
                 style={{
                   width: "100%",

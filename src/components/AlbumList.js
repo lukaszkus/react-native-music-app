@@ -12,6 +12,8 @@ const AlbumList = ({
   lastUpdate,
   toggleView,
   handleAddToFav,
+  handleRemoveFromFav,
+  isExistInFav,
 }) => {
   return (
     <FlatList
@@ -22,6 +24,8 @@ const AlbumList = ({
           item={item}
           toggleView={toggleView}
           handleAddToFav={handleAddToFav}
+          handleRemoveFromFav={handleRemoveFromFav}
+          isExistInFav={isExistInFav}
         />
       )}
       initialNumToRender={6}
