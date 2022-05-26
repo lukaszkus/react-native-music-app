@@ -1,5 +1,4 @@
 import { View, StyleSheet, Text } from "react-native";
-import React from "react";
 
 import { COLORS, SHADOW } from "../constants";
 
@@ -7,7 +6,6 @@ const AlbumEmptyItem = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.textBold}>Not found!</Text>
-      <Text style={styles.textRegular}>Please try to type something else.</Text>
     </View>
   );
 };

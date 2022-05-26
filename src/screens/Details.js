@@ -1,4 +1,5 @@
-import React from "react";
+import { useContext } from "react";
+import Context from "../context/context";
 import {
   Image,
   SafeAreaView,
@@ -16,18 +17,19 @@ import { BottomMenu, Button, Icon } from "../components";
 
 const Details = ({ route }) => {
   const navigation = useNavigation();
+  const item = route.params;
 
-  const { data, handleAddToFav, handleRemoveFromFav, isExistInFav } =
-    route.params;
+  const { handleAddToFav, handleRemoveFromFav, isExistInFav } =
+    useContext(Context);
 
-  const artistLink = data["im:artist"]?.attributes;
+  const artistLink = item["im:artist"]?.attributes;
 
   return (
     <SafeAreaView style={styles.mainContainer}>
       <ScrollView>
         <View style={styles.imageContainer}>
           <Image
-            source={{ uri: `${data["im:image"][2].label}` }}
+            source={{ uri: `${item["im:image"][2].label}` }}
             style={styles.bluredImage}
             blurRadius={2}
             resizeMode="cover"
@@ -39,25 +41,26 @@ const Details = ({ route }) => {
               buttonHeight={45}
               iconHeight={18}
               iconWidth={18}
-              // handlePress={() => navigation.goBack()}
-              handlePress={() => handleAddToFav(data)}
+              handlePress={() => navigation.goBack()}
             />
             <Button
-              iconUrl={
-                isExistInFav(data) === true ? assets.heartFav : assets.heart
-              }
+              iconUrl={isExistInFav(item) ? assets.heartFav : assets.heart}
               buttonWidth={45}
               buttonHeight={45}
               iconHeight={25}
               iconWidth={25}
-              handlePress={() => handleRemoveFromFav(data)}
+              handlePress={() =>
+                isExistInFav(item)
+                  ? handleRemoveFromFav(item)
+                  : handleAddToFav(item)
+              }
             />
           </View>
 
           <View style={styles.albumCoverContainer}>
             <Image
               style={styles.albumCover}
-              source={{ uri: `${data["im:image"][2].label}` }}
+              source={{ uri: `${item["im:image"][2].label}` }}
               resizeMode="cover"
             />
           </View>
@@ -67,8 +70,9 @@ const Details = ({ route }) => {
               <Text
                 style={{
                   fontFamily: "Poppins_400Regular",
-                }}>
-                {data.category.attributes.label.toUpperCase()}
+                }}
+              >
+                {item.category.attributes.label.toUpperCase()}
               </Text>
             </View>
             <View>
@@ -76,8 +80,9 @@ const Details = ({ route }) => {
               <Text
                 style={{
                   fontFamily: "Poppins_400Regular",
-                }}>
-                {data["im:releaseDate"].attributes.label.toUpperCase()}
+                }}
+              >
+                {item["im:releaseDate"].attributes.label.toUpperCase()}
               </Text>
             </View>
           </View>
@@ -85,14 +90,14 @@ const Details = ({ route }) => {
         <View style={styles.headingContainer}>
           <View>
             <Text style={styles.categoryText}>Album:</Text>
-            <Text style={styles.headingTitle}>{data["im:name"].label}</Text>
+            <Text style={styles.headingTitle}>{item["im:name"].label}</Text>
             <Text style={styles.categoryText} numberOfLines={2}>
-              {data.rights.label}
+              {item.rights.label}
             </Text>
           </View>
           <View style={{ marginTop: 10 }}>
             <Text style={styles.categoryText}>Artist:</Text>
-            <Text style={styles.headingArtist}>{data["im:artist"].label}</Text>
+            <Text style={styles.headingArtist}>{item["im:artist"].label}</Text>
           </View>
         </View>
       </ScrollView>
@@ -111,15 +116,6 @@ const Details = ({ route }) => {
           marginH={10}
           handlePress={() => navigation.navigate("Favourites")}
         />
-        <Icon
-          iconUrl={assets.album}
-          iconWidth={35}
-          iconHeight={35}
-          marginH={10}
-          handlePress={() =>
-            WebBrowser.openBrowserAsync(data.link.attributes.href)
-          }
-        />
         {artistLink === undefined ? null : (
           <Icon
             iconUrl={assets.artist}
@@ -127,10 +123,19 @@ const Details = ({ route }) => {
             iconHeight={35}
             marginH={10}
             handlePress={() =>
-              WebBrowser.openBrowserAsync(data["im:artist"].attributes.href)
+              WebBrowser.openBrowserAsync(item["im:artist"].attributes.href)
             }
           />
         )}
+        <Icon
+          iconUrl={assets.album}
+          iconWidth={35}
+          iconHeight={35}
+          marginH={10}
+          handlePress={() =>
+            WebBrowser.openBrowserAsync(item.link.attributes.href)
+          }
+        />
       </BottomMenu>
     </SafeAreaView>
   );

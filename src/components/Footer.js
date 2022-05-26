@@ -1,10 +1,13 @@
+import { useContext } from "react";
+import Context from "../context/context";
 import { View, StyleSheet, Text } from "react-native";
-import React from "react";
 
 import { COLORS } from "../constants";
 
-const Footer = ({ lastUpdate }) => {
+const Footer = () => {
+  const { lastUpdate } = useContext(Context);
   const date = lastUpdate.slice(0, 10);
+
   return (
     <View style={styles.footerContainer}>
       <Text style={styles.footerText}>Latest update: {date}</Text>

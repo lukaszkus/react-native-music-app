@@ -1,19 +1,16 @@
-import React from "react";
 import { useNavigation } from "@react-navigation/native";
+import { useContext } from "react";
+import Context from "../context/context";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { assets, COLORS, SHADOW } from "../constants";
 
 import Button from "./Button";
 
-const AlbumItem = ({
-  item,
-  toggleView,
-  handleAddToFav,
-  handleRemoveFromFav,
-  isExistInFav,
-}) => {
+const AlbumItem = ({ item }) => {
   const navigation = useNavigation();
+
+  const { toggleView } = useContext(Context);
 
   return (
     <TouchableOpacity
@@ -21,14 +18,7 @@ const AlbumItem = ({
         toggleView === 1 ? styles.albumContainerLi : styles.albumContainerCol
       }
       activeOpacity={0.5}
-      onPress={() =>
-        navigation.navigate("Details", {
-          data: item,
-          handleAddToFav: handleAddToFav,
-          handleRemoveFromFav: handleRemoveFromFav,
-          isExistInFav: isExistInFav,
-        })
-      }
+      onPress={() => navigation.navigate("Details", item)}
     >
       <Image
         style={toggleView === 1 ? styles.albumCoverLi : styles.albumCoverCol}

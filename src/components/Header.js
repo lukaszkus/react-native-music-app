@@ -1,10 +1,12 @@
-import React from "react";
+import { useContext } from "react";
+import Context from "../context/context";
 import { Image, StyleSheet, TextInput, View } from "react-native";
 
 import { assets, COLORS, SHADOW } from "../constants";
 import Icon from "./Icon";
 
-const Header = ({ search, setSearch }) => {
+const Header = () => {
+  const { search, setSearch } = useContext(Context);
   return (
     <View style={styles.headerContainer}>
       <View style={styles.logoContainer}>

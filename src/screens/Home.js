@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import Context from "../context/context";
 import { useNavigation } from "@react-navigation/native";
-
+import axios from "axios";
 import {
   ActivityIndicator,
   Image,
@@ -11,29 +11,25 @@ import {
   View,
   Dimensions,
 } from "react-native";
-import axios from "axios";
 
 import { AlbumList, BottomMenu, Icon } from "../components";
-
 import { assets, COLORS } from "../constants";
 
 const endpointURL = "https://itunes.apple.com/us/rss/topalbums/limit=100/json";
 
+const windowHeight = Dimensions.get("window").height / 2;
+
 const Home = () => {
   const navigation = useNavigation();
-  const [isLoading, setLoading] = useState(true);
-  // const [data, setData] = useState([]);
-  const [lastUpdate, setLastUpdate] = useState("");
-  const [search, setSearch] = useState("");
-  const [toggleView, setToggleView] = useState(1);
-  const [favouritesList, setFavouritesList] = useState([]);
 
-  const { data, setData } = useContext(Context);
-
-  // console.log(filter);
-  // console.log(lastUpdate);
-
-  const windowHeight = Dimensions.get("window").height / 2;
+  const {
+    setData,
+    isLoading,
+    setLoading,
+    setLastUpdate,
+    handleToggleListView,
+    handleToggleColumnView,
+  } = useContext(Context);
 
   //get data
   useEffect(() => {
@@ -42,7 +38,6 @@ const Home = () => {
       .then((res) => {
         let data = res.data.feed.entry;
         let update = res.data.feed.updated.label;
-        // console.log(data);
         setData(data);
         setLastUpdate(update);
         setLoading(false);
@@ -51,59 +46,6 @@ const Home = () => {
         console.log(err);
       });
   }, []);
-
-  //real time input search
-  const searchedData = data.filter((item) => {
-    return item.title.label.includes(search);
-  });
-
-  //fiter data
-  const filterCategory = [
-    ...new Set(data.map((item) => item.category.attributes.label)),
-  ];
-  // console.log(filterCategory);
-
-  //change list view to grid view
-  const handleToggleListView = () => {
-    setToggleView(1);
-  };
-
-  const handleToggleColumnView = () => {
-    setToggleView(2);
-  };
-
-  //add to favourites
-  const handleAddToFav = (album) => {
-    JSON.stringify(album);
-    setFavouritesList([...favouritesList, album]);
-    console.log(
-      `added + ${album["im:name"].label} + id: ${album.id.attributes["im:id"]}`
-    );
-  };
-
-  //remove from favourites
-  const handleRemoveFromFav = (album) => {
-    const favList = favouritesList.filter(
-      (item) => item.id.attributes["im:id"] !== album.id.attributes["im:id"]
-    );
-    setFavouritesList(favList);
-    console.log("removed");
-  };
-
-  //is album exist in favourites
-  const isExistInFav = (album) => {
-    if (
-      favouritesList.filter(
-        (item) => item.id.attributes["im:id"] === album.id.attributes["im:id"]
-      ).lenght > 0
-    ) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
-  console.log(favouritesList);
 
   return (
     <SafeAreaView style={styles.mainContainer}>
@@ -115,20 +57,8 @@ const Home = () => {
         />
       ) : (
         <View style={{ flex: 1 }}>
-          <View
-            style={{
-              zIndex: 0,
-            }}>
-            <AlbumList
-              data={searchedData}
-              search={search}
-              setSearch={setSearch}
-              lastUpdate={lastUpdate}
-              toggleView={toggleView}
-              handleAddToFav={handleAddToFav}
-              handleRemoveFromFav={handleRemoveFromFav}
-              isExistInFav={isExistInFav}
-            />
+          <View style={{ zIndex: 0 }}>
+            <AlbumList />
           </View>
 
           <BottomMenu>
@@ -137,9 +67,7 @@ const Home = () => {
               iconWidth={30}
               iconHeight={30}
               marginH={10}
-              handlePress={() =>
-                navigation.navigate("Favourites", favouritesList)
-              }
+              handlePress={() => navigation.navigate("Favourites")}
             />
             <Icon
               iconUrl={assets.list}
@@ -157,29 +85,10 @@ const Home = () => {
             />
           </BottomMenu>
 
-          <View
-            style={{
-              position: "absolute",
-              top: 0,
-              bottom: 0,
-              right: 0,
-              left: 0,
-              zIndex: -1,
-            }}>
-            <View
-              style={{
-                height: 240,
-                backgroundColor: COLORS.accent,
-                borderBottomLeftRadius: 20,
-                borderBottomRightRadius: 20,
-              }}>
+          <View style={styles.bgContainer}>
+            <View style={styles.bgColor}>
               <Image
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  borderBottomLeftRadius: 20,
-                  borderBottomRightRadius: 20,
-                }}
+                style={styles.bgImg}
                 source={assets.splashbg}
                 resizeMode="cover"
               />
@@ -197,5 +106,25 @@ const styles = StyleSheet.create({
   mainContainer: {
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     flex: 1,
+  },
+  bgContainer: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
+    zIndex: -1,
+  },
+  bgColor: {
+    height: 240,
+    backgroundColor: COLORS.accent,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+  },
+  bgImg: {
+    width: "100%",
+    height: "100%",
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
   },
 });

@@ -1,32 +1,24 @@
+import { useContext } from "react";
+import Context from "../context/context";
 import {
-  FlatList,
   StatusBar,
   SafeAreaView,
   StyleSheet,
+  Image,
   Text,
   View,
 } from "react-native";
 
-import { BottomMenu, Icon } from "../components";
+import { FavList, BottomMenu, Icon } from "../components";
 
-import { assets } from "../constants";
+import { assets, COLORS } from "../constants";
 
-const Favourites = ({ route, navigation }) => {
-  const favouritesList = route.params;
+const Favourites = ({ navigation }) => {
+  const { handleToggleListView, handleToggleColumnView } = useContext(Context);
 
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <Text>Favourites</Text>
-      <FlatList
-        data={favouritesList}
-        keyExtractor={(item) => item.id.attributes["im:id"]}
-        renderItem={({ item }) => (
-          <View>
-            <Text>Name: {item["im:artist"].label}</Text>
-            <Text>Id: {item.id.attributes["im:id"]}</Text>
-          </View>
-        )}
-      />
+      <FavList />
       <BottomMenu>
         <Icon
           iconUrl={assets.home}
@@ -35,7 +27,31 @@ const Favourites = ({ route, navigation }) => {
           marginH={10}
           handlePress={() => navigation.navigate("Home")}
         />
+        <Icon
+          iconUrl={assets.list}
+          iconWidth={30}
+          iconHeight={30}
+          marginH={10}
+          handlePress={() => handleToggleListView()}
+        />
+        <Icon
+          iconUrl={assets.tiles}
+          iconWidth={30}
+          iconHeight={30}
+          marginH={10}
+          handlePress={() => handleToggleColumnView()}
+        />
       </BottomMenu>
+
+      <View style={styles.bgContainer}>
+        <View style={styles.bgColor}>
+          <Image
+            style={styles.bgImg}
+            source={assets.splashbg}
+            resizeMode="cover"
+          />
+        </View>
+      </View>
     </SafeAreaView>
   );
 };
@@ -46,5 +62,25 @@ const styles = StyleSheet.create({
   mainContainer: {
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     flex: 1,
+  },
+  bgContainer: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
+    zIndex: -1,
+  },
+  bgColor: {
+    height: 240,
+    backgroundColor: COLORS.accent,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+  },
+  bgImg: {
+    width: "100%",
+    height: "100%",
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
   },
 });

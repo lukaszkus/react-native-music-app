@@ -7,27 +7,26 @@ import AlbumEmptyItem from "./AlbumEmptyItem";
 import Header from "./Header";
 import Footer from "./Footer";
 
-const AlbumList = () => {
-  const { searchedData, toggleView } = useContext(Context);
+const FavList = () => {
+  const { favouritesList, toggleView } = useContext(Context);
   return (
     <FlatList
-      data={searchedData}
+      data={favouritesList}
       keyExtractor={(item) => item.id.attributes["im:id"]}
       renderItem={({ item }) => <AlbumItem item={item} />}
       initialNumToRender={6}
       showsVerticalScrollIndicator={false}
       numColumns={toggleView}
       key={toggleView}
-      ListHeaderComponent={<Header />}
+      // ListHeaderComponent={<Header />}
       ListEmptyComponent={<AlbumEmptyItem />}
-      ListFooterComponent={<Footer />}
       columnWrapperStyle={toggleView === 1 ? null : styles.listContainer}
       contentContainerStyle={{ paddingHorizontal: 20 }}
     />
   );
 };
 
-export default AlbumList;
+export default FavList;
 
 const styles = StyleSheet.create({
   listContainer: {
