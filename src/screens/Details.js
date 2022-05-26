@@ -9,11 +9,14 @@ import {
   View,
 } from "react-native";
 import * as WebBrowser from "expo-web-browser";
+import { useNavigation } from "@react-navigation/native";
 
 import { assets, COLORS, SHADOW } from "../constants";
 import { BottomMenu, Button, Icon } from "../components";
 
-const Details = ({ route, navigation }) => {
+const Details = ({ route }) => {
+  const navigation = useNavigation();
+
   const { data, handleAddToFav, handleRemoveFromFav, isExistInFav } =
     route.params;
 
@@ -36,19 +39,18 @@ const Details = ({ route, navigation }) => {
               buttonHeight={45}
               iconHeight={18}
               iconWidth={18}
-              handlePress={() => navigation.goBack()}
+              // handlePress={() => navigation.goBack()}
+              handlePress={() => handleAddToFav(data)}
             />
             <Button
-              iconUrl={isExistInFav(data) ? assets.heartFav : assets.heart}
+              iconUrl={
+                isExistInFav(data) === true ? assets.heartFav : assets.heart
+              }
               buttonWidth={45}
               buttonHeight={45}
               iconHeight={25}
               iconWidth={25}
-              handlePress={() =>
-                isExistInFav(data)
-                  ? handleRemoveFromFav(data)
-                  : handleAddToFav(data)
-              }
+              handlePress={() => handleRemoveFromFav(data)}
             />
           </View>
 
@@ -65,8 +67,7 @@ const Details = ({ route, navigation }) => {
               <Text
                 style={{
                   fontFamily: "Poppins_400Regular",
-                }}
-              >
+                }}>
                 {data.category.attributes.label.toUpperCase()}
               </Text>
             </View>
@@ -75,8 +76,7 @@ const Details = ({ route, navigation }) => {
               <Text
                 style={{
                   fontFamily: "Poppins_400Regular",
-                }}
-              >
+                }}>
                 {data["im:releaseDate"].attributes.label.toUpperCase()}
               </Text>
             </View>
@@ -162,7 +162,9 @@ const styles = StyleSheet.create({
     flex: 1,
     width: 150,
     height: 150,
-    borderRadius: 10,
+    borderRadius: 12,
+    padding: 2,
+    backgroundColor: COLORS.white,
     position: "absolute",
     bottom: -80,
     left: 20,
@@ -170,8 +172,8 @@ const styles = StyleSheet.create({
   },
 
   albumCover: {
-    width: 150,
-    height: 150,
+    width: "100%",
+    height: "100%",
     borderRadius: 10,
   },
 

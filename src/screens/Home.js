@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import Context from "../context/context";
 import { useNavigation } from "@react-navigation/native";
 
 import {
@@ -19,13 +20,15 @@ import { assets, COLORS } from "../constants";
 const endpointURL = "https://itunes.apple.com/us/rss/topalbums/limit=100/json";
 
 const Home = () => {
+  const navigation = useNavigation();
   const [isLoading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   const [lastUpdate, setLastUpdate] = useState("");
   const [search, setSearch] = useState("");
   const [toggleView, setToggleView] = useState(1);
-  const [favourites, setFavourites] = useState([]);
-  const navigation = useNavigation();
+  const [favouritesList, setFavouritesList] = useState([]);
+
+  const { data, setData } = useContext(Context);
 
   // console.log(filter);
   // console.log(lastUpdate);
@@ -71,7 +74,8 @@ const Home = () => {
 
   //add to favourites
   const handleAddToFav = (album) => {
-    setFavourites([...favourites, album]);
+    JSON.stringify(album);
+    setFavouritesList([...favouritesList, album]);
     console.log(
       `added + ${album["im:name"].label} + id: ${album.id.attributes["im:id"]}`
     );
@@ -79,17 +83,17 @@ const Home = () => {
 
   //remove from favourites
   const handleRemoveFromFav = (album) => {
-    const favList = favourites.filter(
+    const favList = favouritesList.filter(
       (item) => item.id.attributes["im:id"] !== album.id.attributes["im:id"]
     );
-    setFavourites(favList);
+    setFavouritesList(favList);
     console.log("removed");
   };
 
   //is album exist in favourites
   const isExistInFav = (album) => {
     if (
-      favourites.filter(
+      favouritesList.filter(
         (item) => item.id.attributes["im:id"] === album.id.attributes["im:id"]
       ).lenght > 0
     ) {
@@ -98,6 +102,8 @@ const Home = () => {
       return false;
     }
   };
+
+  console.log(favouritesList);
 
   return (
     <SafeAreaView style={styles.mainContainer}>
@@ -112,8 +118,7 @@ const Home = () => {
           <View
             style={{
               zIndex: 0,
-            }}
-          >
+            }}>
             <AlbumList
               data={searchedData}
               search={search}
@@ -132,7 +137,9 @@ const Home = () => {
               iconWidth={30}
               iconHeight={30}
               marginH={10}
-              handlePress={() => navigation.navigate("Favourites")}
+              handlePress={() =>
+                navigation.navigate("Favourites", favouritesList)
+              }
             />
             <Icon
               iconUrl={assets.list}
@@ -158,16 +165,14 @@ const Home = () => {
               right: 0,
               left: 0,
               zIndex: -1,
-            }}
-          >
+            }}>
             <View
               style={{
                 height: 240,
                 backgroundColor: COLORS.accent,
                 borderBottomLeftRadius: 20,
                 borderBottomRightRadius: 20,
-              }}
-            >
+              }}>
               <Image
                 style={{
                   width: "100%",

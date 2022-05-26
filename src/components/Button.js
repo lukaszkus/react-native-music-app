@@ -15,8 +15,7 @@ const Button = ({
     <TouchableOpacity
       style={{ ...styles.container, width: buttonWidth, height: buttonHeight }}
       activeOpacity={0.6}
-      onPress={handlePress}
-    >
+      onPress={handlePress}>
       {title ? (
         <Text style={styles.buttonTitle}>{title}</Text>
       ) : (
