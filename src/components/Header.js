@@ -7,6 +7,7 @@ import Icon from "./Icon";
 
 const Header = () => {
   const { search, setSearch } = useContext(Context);
+
   return (
     <View style={styles.headerContainer}>
       <View style={styles.logoContainer}>
@@ -18,7 +19,7 @@ const Header = () => {
           <Image style={styles.inputIcon} source={assets.searchDark} />
           <TextInput
             style={styles.input}
-            placeholder="Type to search albums"
+            placeholder="Search albums"
             value={search}
             onChangeText={setSearch}
           />

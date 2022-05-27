@@ -19,7 +19,7 @@ const Details = ({ route }) => {
   const navigation = useNavigation();
   const item = route.params;
 
-  const { handleAddToFav, handleRemoveFromFav, isExistInFav } =
+  const { isExistInFav, handleAddToFav, handleRemoveFromFav } =
     useContext(Context);
 
   const artistLink = item["im:artist"]?.attributes;
@@ -70,8 +70,7 @@ const Details = ({ route }) => {
               <Text
                 style={{
                   fontFamily: "Poppins_400Regular",
-                }}
-              >
+                }}>
                 {item.category.attributes.label.toUpperCase()}
               </Text>
             </View>
@@ -80,8 +79,7 @@ const Details = ({ route }) => {
               <Text
                 style={{
                   fontFamily: "Poppins_400Regular",
-                }}
-              >
+                }}>
                 {item["im:releaseDate"].attributes.label.toUpperCase()}
               </Text>
             </View>

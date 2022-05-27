@@ -6,20 +6,21 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { assets, COLORS, SHADOW } from "../constants";
 
 import Button from "./Button";
+import Icon from "./Icon";
 
 const AlbumItem = ({ item }) => {
   const navigation = useNavigation();
 
-  const { toggleView } = useContext(Context);
+  const { toggleView, isExistInFav, handleAddToFav, handleRemoveFromFav } =
+    useContext(Context);
 
   return (
     <TouchableOpacity
       style={
         toggleView === 1 ? styles.albumContainerLi : styles.albumContainerCol
       }
-      activeOpacity={0.5}
-      onPress={() => navigation.navigate("Details", item)}
-    >
+      activeOpacity={0.4}
+      onPress={() => navigation.navigate("Details", item)}>
       <Image
         style={toggleView === 1 ? styles.albumCoverLi : styles.albumCoverCol}
         source={{ uri: `${item["im:image"][2].label}` }}
@@ -27,26 +28,43 @@ const AlbumItem = ({ item }) => {
       <View
         style={
           toggleView === 1 ? styles.textContainerLi : styles.textContainerCol
-        }
-      >
+        }>
         <Text
           style={styles.albumTitle}
-          numberOfLines={toggleView === 1 ? 2 : 1}
-        >
+          numberOfLines={toggleView === 1 ? 2 : 1}>
           {item["im:name"].label}
         </Text>
         <Text numberOfLines={1} style={styles.albumArtist}>
           {item["im:artist"].label}
         </Text>
       </View>
-      <View style={{ alignSelf: "flex-end" }}>
-        <Button
-          iconUrl={assets.arrowRight}
-          buttonWidth={25}
-          buttonHeight={25}
-          iconWidth={10}
-          iconHeight={10}
-        />
+      <View
+        style={
+          toggleView === 2
+            ? { flexDirection: "row", alignItems: "center" }
+            : null
+        }>
+        <View style={{ flex: 1 }}>
+          <Icon
+            iconUrl={
+              isExistInFav(item) ? assets.heartFavAccent : assets.heartAccent
+            }
+            iconWidth={toggleView === 1 ? 20 : 22.3}
+            iconHeight={toggleView === 1 ? 16.2 : 18}
+            handlePress={() =>
+              isExistInFav(item)
+                ? handleRemoveFromFav(item)
+                : handleAddToFav(item)
+            }
+          />
+        </View>
+        <View>
+          <Icon
+            iconUrl={assets.circleArrowRightAccent}
+            iconWidth={20}
+            iconHeight={20}
+          />
+        </View>
       </View>
     </TouchableOpacity>
   );
