@@ -15,12 +15,6 @@ export function ContextProvider({ children }) {
     return item.title.label.includes(search);
   });
 
-  //fiter data
-  // const filterCategory = [
-  //   ...new Set(data.map((item) => item.category.attributes.label)),
-  // ];
-  // console.log(filterCategory);
-
   //change list view to grid view
   const handleToggleListView = () => {
     setToggleView(1);

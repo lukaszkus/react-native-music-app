@@ -5,7 +5,6 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { assets, COLORS, SHADOW } from "../constants";
 
-import Button from "./Button";
 import Icon from "./Icon";
 
 const AlbumItem = ({ item }) => {
@@ -20,7 +19,8 @@ const AlbumItem = ({ item }) => {
         toggleView === 1 ? styles.albumContainerLi : styles.albumContainerCol
       }
       activeOpacity={0.4}
-      onPress={() => navigation.navigate("Details", item)}>
+      onPress={() => navigation.navigate("Details", item)}
+    >
       <Image
         style={toggleView === 1 ? styles.albumCoverLi : styles.albumCoverCol}
         source={{ uri: `${item["im:image"][2].label}` }}
@@ -28,10 +28,12 @@ const AlbumItem = ({ item }) => {
       <View
         style={
           toggleView === 1 ? styles.textContainerLi : styles.textContainerCol
-        }>
+        }
+      >
         <Text
           style={styles.albumTitle}
-          numberOfLines={toggleView === 1 ? 2 : 1}>
+          numberOfLines={toggleView === 1 ? 2 : 1}
+        >
           {item["im:name"].label}
         </Text>
         <Text numberOfLines={1} style={styles.albumArtist}>
@@ -43,7 +45,8 @@ const AlbumItem = ({ item }) => {
           toggleView === 2
             ? { flexDirection: "row", alignItems: "center" }
             : null
-        }>
+        }
+      >
         <View style={{ flex: 1 }}>
           <Icon
             iconUrl={

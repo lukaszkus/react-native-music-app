@@ -4,7 +4,6 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import {
   ActivityIndicator,
-  Image,
   StatusBar,
   SafeAreaView,
   StyleSheet,
@@ -12,7 +11,7 @@ import {
   Dimensions,
 } from "react-native";
 
-import { AlbumList, BottomMenu, Icon } from "../components";
+import { AlbumList, BottomMenu, Header, Icon } from "../components";
 import { assets, COLORS } from "../constants";
 
 const endpointURL = "https://itunes.apple.com/us/rss/topalbums/limit=100/json";
@@ -86,12 +85,8 @@ const Home = () => {
           </BottomMenu>
 
           <View style={styles.bgContainer}>
-            <View style={styles.bgColor}>
-              <Image
-                style={styles.bgImg}
-                source={assets.splashbg}
-                resizeMode="cover"
-              />
+            <View>
+              <Header />
             </View>
           </View>
         </View>
@@ -107,24 +102,10 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     flex: 1,
   },
+
   bgContainer: {
     position: "absolute",
-    top: 0,
-    bottom: 0,
-    right: 0,
-    left: 0,
-    zIndex: -1,
-  },
-  bgColor: {
-    height: 240,
-    backgroundColor: COLORS.accent,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-  },
-  bgImg: {
     width: "100%",
-    height: "100%",
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    zIndex: 1,
   },
 });

@@ -70,7 +70,8 @@ const Details = ({ route }) => {
               <Text
                 style={{
                   fontFamily: "Poppins_400Regular",
-                }}>
+                }}
+              >
                 {item.category.attributes.label.toUpperCase()}
               </Text>
             </View>
@@ -79,7 +80,8 @@ const Details = ({ route }) => {
               <Text
                 style={{
                   fontFamily: "Poppins_400Regular",
-                }}>
+                }}
+              >
                 {item["im:releaseDate"].attributes.label.toUpperCase()}
               </Text>
             </View>
@@ -200,21 +202,22 @@ const styles = StyleSheet.create({
   },
 
   headingTitle: {
-    fontFamily: "Poppins_700Bold",
     fontSize: 24,
+    fontFamily: "Poppins_700Bold",
+    color: COLORS.darkGray,
     lineHeight: 30,
     paddingVertical: 3,
   },
 
   headingArtist: {
-    fontFamily: "Poppins_500Medium",
     fontSize: 16,
+    fontFamily: "Poppins_500Medium",
+    color: COLORS.darkGray,
     lineHeight: 20,
     paddingVertical: 3,
   },
 
   buttonsContainer: {
-    // flex: 1,
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",

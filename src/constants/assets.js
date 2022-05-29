@@ -14,6 +14,7 @@ import heartFavAccent from "../assets/icons/heartFavAccent.png";
 import home from "../assets/icons/home.png";
 import list from "../assets/icons/list.png";
 import searchDark from "../assets/icons/searchDark.png";
+import searchLight from "../assets/icons/searchLight.png";
 import tiles from "../assets/icons/tiles.png";
 
 //Images
@@ -29,6 +30,7 @@ export default {
   circleArrowRight,
   circleArrowRightAccent,
   searchDark,
+  searchLight,
   filter,
   heart,
   heartAccent,

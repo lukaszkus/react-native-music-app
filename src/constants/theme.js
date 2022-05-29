@@ -1,7 +1,7 @@
 export const COLORS = {
   accent: "#3500d3",
   white: "#fff",
-  darkGray: "#636363",
+  darkGray: "#282828",
 };
 
 export const SHADOW = {

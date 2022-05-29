@@ -1,10 +1,9 @@
 import { useContext } from "react";
 import Context from "../context/context";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList } from "react-native";
 
 import AlbumItem from "./AlbumItem";
 import AlbumEmptyItem from "./AlbumEmptyItem";
-import Header from "./Header";
 import Footer from "./Footer";
 
 const FavList = () => {
@@ -18,18 +17,14 @@ const FavList = () => {
       showsVerticalScrollIndicator={false}
       numColumns={toggleView}
       key={toggleView}
-      // ListHeaderComponent={<Header />}
       ListEmptyComponent={<AlbumEmptyItem />}
-      columnWrapperStyle={toggleView === 1 ? null : styles.listContainer}
-      contentContainerStyle={{ paddingHorizontal: 20 }}
+      ListFooterComponent={<Footer title="Title" />}
+      columnWrapperStyle={
+        toggleView === 1 ? null : { justifyContent: "space-between" }
+      }
+      contentContainerStyle={{ paddingHorizontal: 20, paddingTop: 110 }}
     />
   );
 };
 
 export default FavList;
-
-const styles = StyleSheet.create({
-  listContainer: {
-    justifyContent: "space-between",
-  },
-});

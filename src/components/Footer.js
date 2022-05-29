@@ -4,13 +4,15 @@ import { View, StyleSheet, Text } from "react-native";
 
 import { COLORS } from "../constants";
 
-const Footer = () => {
+const Footer = ({ title }) => {
   const { lastUpdate } = useContext(Context);
   const date = lastUpdate.slice(0, 10);
 
   return (
     <View style={styles.footerContainer}>
-      <Text style={styles.footerText}>Latest update: {date}</Text>
+      {title ? null : (
+        <Text style={styles.footerText}>Latest update: {date}</Text>
+      )}
     </View>
   );
 };
